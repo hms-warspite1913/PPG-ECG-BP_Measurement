@@ -9,10 +9,19 @@
 #include "adc.h"
 #include "APP.h"
 #include "Pump.h"
-
-
-
-
+/*
+PUMP--PA6
+VALVE--PA5
+CUFE--PA0
+PULSE--PA1
+ECGOUT--PA7
+PPGOUT--PA8
+TX--PA2
+RXP--PA3
+SCL--PB8
+SDA--PB9
+KEY--PA9 PA10 PA11 PA12
+*/
 
 
  int main(void)
