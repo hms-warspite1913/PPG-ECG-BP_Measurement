@@ -1,0 +1,36 @@
+.\objects\fftdmaad.o: Hardware\FFTDMAAD.c
+.\objects\fftdmaad.o: .\Start\stm32f10x.h
+.\objects\fftdmaad.o: .\Start\core_cm3.h
+.\objects\fftdmaad.o: D:\Program Files (x86)\keil5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\fftdmaad.o: .\Start\system_stm32f10x.h
+.\objects\fftdmaad.o: .\User\stm32f10x_conf.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_adc.h
+.\objects\fftdmaad.o: .\Start\stm32f10x.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_bkp.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_can.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_cec.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_crc.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_dac.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_dbgmcu.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_dma.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_exti.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_flash.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_fsmc.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_gpio.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_i2c.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_iwdg.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_pwr.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_rcc.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_rtc.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_sdio.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_spi.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_tim.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_usart.h
+.\objects\fftdmaad.o: .\Library\stm32f10x_wwdg.h
+.\objects\fftdmaad.o: .\Library\misc.h
+.\objects\fftdmaad.o: D:\Program Files (x86)\keil5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\fftdmaad.o: .\STM32F10x_DSP_Lib\inc\table_fft.h
+.\objects\fftdmaad.o: .\STM32F10x_DSP_Lib\inc\stm32_dsp.h
+.\objects\fftdmaad.o: Hardware\OLED.h
+.\objects\fftdmaad.o: Hardware\OLED_Data.h
+.\objects\fftdmaad.o: Hardware\PWM.h
