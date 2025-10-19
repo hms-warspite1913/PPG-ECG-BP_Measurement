@@ -1,4 +1,4 @@
-.\objects\main_bp.o: main_BP.c
+.\objects\main_bp.o: user\main_BP.c
 .\objects\main_bp.o: .\Start\stm32f10x.h
 .\objects\main_bp.o: .\Start\core_cm3.h
 .\objects\main_bp.o: D:\Program Files (x86)\keil5\ARM\ARMCC\Bin\..\include\stdint.h

@@ -826,7 +826,7 @@
             <File>
               <FileName>main_BP.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\main_BP.c</FilePath>
+              <FilePath>.\user\main_BP.c</FilePath>
             </File>
           </Files>
         </Group>
