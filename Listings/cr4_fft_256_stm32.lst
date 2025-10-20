@@ -1013,7 +1013,7 @@ Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\objects\cr4_fft_256_stm32.d -o.\objects\cr4_fft_256_stm32.o -I"D
 :\Program Files (x86)\keil5_pack\Keil\STM32F1xx_DFP\2.1.0\Device\Include" -I"D:
 \Program Files (x86)\keil5\ARM\CMSIS\Include" --predefine="__UVISION_VERSION SE
-TA 533" --predefine="STM32F10X_MD SETA 1" --list=.\listings\cr4_fft_256_stm32.l
+TA 533" --predefine="STM32F10X_HD SETA 1" --list=.\listings\cr4_fft_256_stm32.l
 st STM32F10x_DSP_Lib\src\asm\arm\cr4_fft_256_stm32.s
 
 
@@ -1090,13 +1090,13 @@ Symbol: NPT
    Definitions
       At line 46 in file STM32F10x_DSP_Lib\src\asm\arm\cr4_fft_256_stm32.s
    Uses
-      At line 136 in macro È3»OPT
+      At line 136 in macro  ZµOPT
       at line 228 in file STM32F10x_DSP_Lib\src\asm\arm\cr4_fft_256_stm32.s
-      At line 139 in macro È3»OPT
+      At line 139 in macro  ZµOPT
       at line 228 in file STM32F10x_DSP_Lib\src\asm\arm\cr4_fft_256_stm32.s
-      At line 142 in macro È3»OPT
+      At line 142 in macro  ZµOPT
       at line 228 in file STM32F10x_DSP_Lib\src\asm\arm\cr4_fft_256_stm32.s
-      At line 145 in macro È3»OPT
+      At line 145 in macro  ZµOPT
       at line 228 in file STM32F10x_DSP_Lib\src\asm\arm\cr4_fft_256_stm32.s
 
 1 symbol

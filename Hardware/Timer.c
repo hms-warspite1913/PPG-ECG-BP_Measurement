@@ -6,7 +6,7 @@
 
 #define SAMPLE_DURATION 25    // 采集总时长（秒）
 #define SAMPLE_INTERVAL 5     // 采样间隔（毫秒）
-#define SAMPLE_COUNT 200  // 总采样次数：5000次
+#define SAMPLE_COUNT 3000  // 总采样次数：5000次
 u8 adc_flag = 0;  
 u8 ms1=0;
 extern u16 AD_Value[2];//声明AD转换缓冲区

@@ -3,7 +3,7 @@
 #define __FFTAD_H
 #define nn 1024
 
-extern uint16_t AD_Value[nn];//存放采样得到的模拟信号
+extern uint16_t AD_Value_PPG[nn];//存放采样得到的模拟信号
 extern uint16_t arr1,psc1;	 //存放采样信号参数
 extern uint32_t fftin[nn],fftout[nn];//存放FFT的输入、输出信号
 extern uint32_t fftbuffer[nn/2];  		//存放输出信号的模值

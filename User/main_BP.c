@@ -18,9 +18,6 @@ void EXTI9_5_IRQHandler(void)
 {
     if (EXTI_GetITStatus(EXTI_Line0) != RESET)
 	{
-		while(1)
-		{
-			Blood_Pr();//依照按键值进行测量
-		}
+		Blood_Pr();//依照按键值进行测量
 	}
 }

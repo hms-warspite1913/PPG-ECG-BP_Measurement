@@ -5,8 +5,7 @@
 #include "OLED.h"
 #include "PWM.h"
 
-#define nn 1024
-#define pi2   6.28318530717959
+#define nn 1024 									
 
 uint16_t AD_Value_PPG[nn];						//定义用于存放AD转换结果的全局数组,一次采样1024个点用于fft计算频率
 												//由于与血压adc.c的AD_Value_PPG冲突改名
@@ -60,23 +59,24 @@ void TIM2_PWM_init(void)
   * 参    数：无
   * 返 回 值：无
   */
+//v0.3 改为adc3 dma2 pc0
 void AD_FFT_Init(void)
 {
 	/*开启时钟*/
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);	//开启ADC1的时钟
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);	//开启GPIOB的时钟
-	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);		//开启DMA1的时钟
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC3, ENABLE);	//开启ADC1的时钟
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);	//开启GPIOB的时钟
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA2, ENABLE);		//开启DMA1的时钟
 	RCC_ADCCLKConfig(RCC_PCLK2_Div6);					//选择时钟6分频，ADCCLK = 72MHz / 6 = 12MHz
 	
 	/*GPIO初始化*/
 	GPIO_InitTypeDef GPIO_InitStructure;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(GPIOB, &GPIO_InitStructure);					//将PB1引脚初始化为模拟输入
+	GPIO_Init(GPIOA, &GPIO_InitStructure);					//将PB1引脚初始化为模拟输入
 	
 	/*规则组通道配置*/
-	ADC_RegularChannelConfig(ADC1, ADC_Channel_9, 1, ADC_SampleTime_55Cycles5);	//规则组序列1的位置，配置为通道9(PB1)
+	ADC_RegularChannelConfig(ADC3, ADC_Channel_10, 1, ADC_SampleTime_55Cycles5);	//规则组序列1的位置，配置为通道9(PB1)
 		
 	/*ADC初始化*/
 	ADC_InitTypeDef ADC_InitStructure;											//定义结构体变量
@@ -106,17 +106,17 @@ void AD_FFT_Init(void)
 	DMA_Init(DMA1_Channel1, &DMA_InitStructure);									//将结构体变量交给DMA_Init，配置DMA1的通道1
 		
 	/*DMA和ADC使能*/
-	DMA_Cmd(DMA1_Channel1, ENABLE);							//DMA1的通道1使能
-	ADC_DMACmd(ADC1, ENABLE);								//ADC1触发DMA1的信号使能
-	ADC_Cmd(ADC1, ENABLE);									//ADC1使能
+	DMA_Cmd(DMA2_Channel5, ENABLE);							//DMA1的通道1使能
+	ADC_DMACmd(ADC3, ENABLE);								//ADC1触发DMA1的信号使能
+	ADC_Cmd(ADC3, ENABLE);									//ADC1使能
   
 	/*ADC校准*/
-	ADC_ResetCalibration(ADC1);								//固定流程，内部有电路会自动执行校准
-	while (ADC_GetResetCalibrationStatus(ADC1) == SET);
-	ADC_StartCalibration(ADC1);
+	ADC_ResetCalibration(ADC3);								//固定流程，内部有电路会自动执行校准
+	while (ADC_GetResetCalibrationStatus(ADC3) == SET);
+	ADC_StartCalibration(ADC3);
 	while (ADC_GetCalibrationStatus(ADC1) == SET);
 	/*ADC触发*/
-	ADC_ExternalTrigConvCmd(ADC1,ENABLE);//硬件触发ADC开始工作
+	ADC_ExternalTrigConvCmd(ADC3,ENABLE);//硬件触发ADC开始工作
 //	ADC_SoftwareStartConvCmd(ADC1, ENABLE);//软件触发
 }
 

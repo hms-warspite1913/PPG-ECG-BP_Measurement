@@ -479,7 +479,7 @@ Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\objects\startup_stm32f10x_md.d -o.\objects\startup_stm32f10x_md.
 o -I"D:\Program Files (x86)\keil5_pack\Keil\STM32F1xx_DFP\2.1.0\Device\Include"
  -I"D:\Program Files (x86)\keil5\ARM\CMSIS\Include" --predefine="__UVISION_VERS
-ION SETA 533" --predefine="STM32F10X_MD SETA 1" --list=.\listings\startup_stm32
+ION SETA 533" --predefine="STM32F10X_HD SETA 1" --list=.\listings\startup_stm32
 f10x_md.lst Start\startup_stm32f10x_md.s
 
 

@@ -38,3 +38,11 @@
 .\objects\main.o: .\Hardware\adc.h
 .\objects\main.o: .\Hardware\APP.h
 .\objects\main.o: .\Hardware\Pump.h
+.\objects\main.o: D:\Program Files (x86)\keil5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\main.o: D:\Program Files (x86)\keil5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\main.o: D:\Program Files (x86)\keil5\ARM\ARMCC\Bin\..\include\cstring
+.\objects\main.o: D:\Program Files (x86)\keil5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\main.o: .\System\lit.h
+.\objects\main.o: .\Hardware\PWM.h
+.\objects\main.o: .\Hardware\FFTDMAAD.h
+.\objects\main.o: .\System\usart.h
