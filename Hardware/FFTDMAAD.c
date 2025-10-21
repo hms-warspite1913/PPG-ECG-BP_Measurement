@@ -88,11 +88,11 @@ void AD_FFT_Init(void)
 	ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;							//连续转换，失能，每接收到一次定时器脉冲进行一次采集
 	ADC_InitStructure.ADC_ScanConvMode = DISABLE;								//扫描模式，失能，每接收到一次定时器脉冲进行一次采集
 	ADC_InitStructure.ADC_NbrOfChannel = 1;										//通道数，为1，只扫描规则组的1个通道
-	ADC_Init(ADC1, &ADC_InitStructure);											//将结构体变量交给ADC_Init，配置ADC1
+	ADC_Init(ADC3, &ADC_InitStructure);											//将结构体变量交给ADC_Init，配置ADC1
 	
 	/*DMA初始化*/
 	DMA_InitTypeDef DMA_InitStructure;											//定义结构体变量
-	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&ADC1->DR;							//外设基地址，给定形参AddrA
+	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&ADC3->DR;							//外设基地址，给定形参AddrA
 	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;	//外设数据宽度，选择半字，对应16为的ADC数据寄存器
 	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;						//外设地址自增，选择失能，始终以ADC数据寄存器为源
 	DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)AD_Value_PPG;					//存储器基地址，给定存放AD转换结果的全局数组AD_Value_PPG
@@ -103,7 +103,7 @@ void AD_FFT_Init(void)
 	DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;									//是否自动重装，选择循环模式，与ADC的连续转换一致
 	DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;										//存储器到存储器，选择失能，数据由ADC外设触发转运到存储器
 	DMA_InitStructure.DMA_Priority = DMA_Priority_High;							//优先级，选择高
-	DMA_Init(DMA1_Channel1, &DMA_InitStructure);									//将结构体变量交给DMA_Init，配置DMA1的通道1
+	DMA_Init(DMA1_Channel5, &DMA_InitStructure);									//将结构体变量交给DMA_Init，配置DMA1的通道1
 		
 	/*DMA和ADC使能*/
 	DMA_Cmd(DMA2_Channel5, ENABLE);							//DMA1的通道1使能
@@ -114,7 +114,7 @@ void AD_FFT_Init(void)
 	ADC_ResetCalibration(ADC3);								//固定流程，内部有电路会自动执行校准
 	while (ADC_GetResetCalibrationStatus(ADC3) == SET);
 	ADC_StartCalibration(ADC3);
-	while (ADC_GetCalibrationStatus(ADC1) == SET);
+	while (ADC_GetCalibrationStatus(ADC3) == SET);
 	/*ADC触发*/
 	ADC_ExternalTrigConvCmd(ADC3,ENABLE);//硬件触发ADC开始工作
 //	ADC_SoftwareStartConvCmd(ADC1, ENABLE);//软件触发

@@ -38,6 +38,7 @@ void _sys_exit(int x)
 { 
 	x = x; 
 } 
+/*
 //重定义fputc函数 
 int fputc(int ch, FILE *f)
 {      
@@ -45,7 +46,7 @@ int fputc(int ch, FILE *f)
     USART_SendData(USART2,(uint8_t)ch);    
 	return ch;
 }
-
+*/
 #endif 
 
 /*使用microLib的方法*/
@@ -217,6 +218,14 @@ void UART_SendStr(char* str)
     while(USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);
 }
 
-
+ /* 描述  ：重定向c库函数printf到USART1*/ 
+int fputc(int ch, FILE *f)
+{
+/* 将Printf内容发往串口 */
+  USART_SendData(USART2, (unsigned char) ch);
+  while (!(USART2->SR & USART_FLAG_TXE));
+ 
+  return (ch);
+}
 #endif	
 

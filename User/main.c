@@ -22,13 +22,15 @@
 uint16_t j;
 uint8_t KeyNum;
 extern u16 AD_Value[2];//AD转换缓冲区
-/*
+u16 value;
+extern u16 High_P,Low_P,Ave_P;
+/*引脚表
 PUMP--PA6
 VALVE--PA5
 CUFE--PA0
 PULSE--PA1
-ECGOUT--PA7
-PPGOUT--PA8
+ECGOUT--PC1
+PPGOUT--PC0
 TX--PA2
 RXP--PA3
 SCL--PB8
@@ -63,6 +65,8 @@ KEY--PA9(BP) PA10(PPG) PA11(ECG) PA12
 	TIM_Cmd(TIM2, ENABLE); 			//使能TIM2，采集脉冲波形
 	TIM_Cmd(TIM4, ENABLE);			//使能TIM4，更新波形图像
 	TIM_Cmd(TIM3, ENABLE);			//使能TIM3，PB0输出PWM
+	
+	Adc_ECG_Init();
 
 while(1)
 	{
@@ -70,6 +74,10 @@ while(1)
     if(KeyNum==1)//BP 180mmHg 当下降 20mmHg时启动波形记录
   	{
 		 Blood_Pr();
+		
+		printf("{\"id\":\"123\",\"version\":\"1.0\",\"params\":{\"HP\":{\"value\":%.d},\"LP\":{\"value\":%.d},\"AP\":{\"value\":%.d}}}",High_P,Low_P,Ave_P);
+			
+		
 	}
 	else if(KeyNum==2)//PPG
   	{
@@ -86,11 +94,12 @@ while(1)
 		for(j = 0; j < 64; j++) // 减少点数到64，提高刷新速度
 		{
 			index += sprintf(&buffer[index], " %d", AD_Value_PPG[j]);
+			printf("{\"id\":\"123\",\"version\":\"1.0\",\"params\":{\"PPG\":{\"value\":%.d}}}",AD_Value_PPG[j]);
 		}
 		index += sprintf(&buffer[index], "\r\n"); // 换行符
 		
 		// 一次性发送整个缓冲区
-		UART_SendStr(buffer);
+		//UART_SendStr(buffer);
 		
 		// 减小时延，提高刷新率
 		Delay_ms(1); // 从5ms改为1ms
@@ -98,14 +107,28 @@ while(1)
 			
 		
 	}
-	else if(KeyNum==3)
+	else if(KeyNum==3)//v1.0 简单套用PPG代码
   	{
 		   
-			
+		while(1)
+		 { 
+				value = Get_Adc(11);//读取ADC2的11通道
+				char buffer_ECG[32]; // 减小缓冲区大小
+				int index_ECG = 0;
+				
+			   
+				
+				index_ECG += sprintf(&buffer_ECG[index_ECG], "%d\r\n", value); // 发送单个数值+换行
+				printf("{\"id\":\"123\",\"version\":\"1.0\",\"params\":{\"ECG\":{\"value\":%.d}}}",value);
+				//UART_SendStr(buffer_ECG);
+				
+				Delay_ms(5); 
+		 }
+	 }
 		
 	}
 }
-}
+
 
 
 

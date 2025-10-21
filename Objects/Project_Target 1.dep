@@ -848,8 +848,8 @@ I (D:\Program Files (x86)\keil5\ARM\ARMCC\include\math.h)(0x5E8E2EB2)
 I (D:\Program Files (x86)\keil5\ARM\ARMCC\include\stdio.h)(0x66F1597C)
 I (D:\Program Files (x86)\keil5\ARM\ARMCC\include\stdarg.h)(0x5E8E2EB2)
 F (.\Hardware\OLED.h)(0x68E25306)()
-F (.\Hardware\adc.c)(0x68F632F5)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\STM32F10x_DSP_Lib -I .\STM32F10x_DSP_Lib\inc -I .\STM32F10x_DSP_Lib\src\asm\arm --no-multibyte-chars-I"D:\Program Files (x86)\keil5_pack\Keil\STM32F1xx_DFP\2.1.0\Device\Include"-I"D:\Program Files (x86)\keil5\ARM\CMSIS\Include"-D__UVISION_VERSION="533" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o .\objects\adc.o --omf_browse .\objects\adc.crf --depend .\objects\adc.d)
-I (Hardware\adc.h)(0x68CBFD30)
+F (.\Hardware\adc.c)(0x68F74E6F)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\STM32F10x_DSP_Lib -I .\STM32F10x_DSP_Lib\inc -I .\STM32F10x_DSP_Lib\src\asm\arm --no-multibyte-chars-I"D:\Program Files (x86)\keil5_pack\Keil\STM32F1xx_DFP\2.1.0\Device\Include"-I"D:\Program Files (x86)\keil5\ARM\CMSIS\Include"-D__UVISION_VERSION="533" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o .\objects\adc.o --omf_browse .\objects\adc.crf --depend .\objects\adc.d)
+I (Hardware\adc.h)(0x68F74E6F)
 I (.\System\sys.h)(0x68F34BDB)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
@@ -879,8 +879,9 @@ I (.\Library\stm32f10x_tim.h)(0x4D783BB4)
 I (.\Library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
-F (.\Hardware\adc.h)(0x68CBFD30)()
-F (.\Hardware\Timer.c)(0x68F64471)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\STM32F10x_DSP_Lib -I .\STM32F10x_DSP_Lib\inc -I .\STM32F10x_DSP_Lib\src\asm\arm --no-multibyte-chars-I"D:\Program Files (x86)\keil5_pack\Keil\STM32F1xx_DFP\2.1.0\Device\Include"-I"D:\Program Files (x86)\keil5\ARM\CMSIS\Include"-D__UVISION_VERSION="533" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o .\objects\timer.o --omf_browse .\objects\timer.crf --depend .\objects\timer.d)
+I (.\System\DELAY.h)(0x6130920E)
+F (.\Hardware\adc.h)(0x68F74E6F)()
+F (.\Hardware\Timer.c)(0x68F7409C)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\STM32F10x_DSP_Lib -I .\STM32F10x_DSP_Lib\inc -I .\STM32F10x_DSP_Lib\src\asm\arm --no-multibyte-chars-I"D:\Program Files (x86)\keil5_pack\Keil\STM32F1xx_DFP\2.1.0\Device\Include"-I"D:\Program Files (x86)\keil5\ARM\CMSIS\Include"-D__UVISION_VERSION="533" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o .\objects\timer.o --omf_browse .\objects\timer.crf --depend .\objects\timer.d)
 I (Hardware\Timer.h)(0x68ECFF60)
 I (.\System\sys.h)(0x68F34BDB)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
@@ -912,12 +913,12 @@ I (.\Library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
 I (Hardware\key.h)(0x68F6404D)
-I (Hardware\adc.h)(0x68CBFD30)
+I (Hardware\adc.h)(0x68F74E6F)
 I (Hardware\APP.h)(0x68F63FE8)
 I (Hardware\OLED.h)(0x68E25306)
 I (Hardware\OLED_Data.h)(0x68E25306)
 F (.\Hardware\Timer.h)(0x68ECFF60)()
-F (.\Hardware\APP.c)(0x68F63FE8)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\STM32F10x_DSP_Lib -I .\STM32F10x_DSP_Lib\inc -I .\STM32F10x_DSP_Lib\src\asm\arm --no-multibyte-chars-I"D:\Program Files (x86)\keil5_pack\Keil\STM32F1xx_DFP\2.1.0\Device\Include"-I"D:\Program Files (x86)\keil5\ARM\CMSIS\Include"-D__UVISION_VERSION="533" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o .\objects\app.o --omf_browse .\objects\app.crf --depend .\objects\app.d)
+F (.\Hardware\APP.c)(0x68F76A1F)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\STM32F10x_DSP_Lib -I .\STM32F10x_DSP_Lib\inc -I .\STM32F10x_DSP_Lib\src\asm\arm --no-multibyte-chars-I"D:\Program Files (x86)\keil5_pack\Keil\STM32F1xx_DFP\2.1.0\Device\Include"-I"D:\Program Files (x86)\keil5\ARM\CMSIS\Include"-D__UVISION_VERSION="533" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o .\objects\app.o --omf_browse .\objects\app.crf --depend .\objects\app.d)
 I (Hardware\APP.h)(0x68F63FE8)
 I (.\System\sys.h)(0x68F34BDB)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
@@ -1054,7 +1055,7 @@ I (.\Library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
 F (.\Hardware\moto.h)(0x68E8F456)()
-F (.\Hardware\FFTDMAAD.c)(0x68F63433)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\STM32F10x_DSP_Lib -I .\STM32F10x_DSP_Lib\inc -I .\STM32F10x_DSP_Lib\src\asm\arm --no-multibyte-chars-I"D:\Program Files (x86)\keil5_pack\Keil\STM32F1xx_DFP\2.1.0\Device\Include"-I"D:\Program Files (x86)\keil5\ARM\CMSIS\Include"-D__UVISION_VERSION="533" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o .\objects\fftdmaad.o --omf_browse .\objects\fftdmaad.crf --depend .\objects\fftdmaad.d)
+F (.\Hardware\FFTDMAAD.c)(0x68F74E6F)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\STM32F10x_DSP_Lib -I .\STM32F10x_DSP_Lib\inc -I .\STM32F10x_DSP_Lib\src\asm\arm --no-multibyte-chars-I"D:\Program Files (x86)\keil5_pack\Keil\STM32F1xx_DFP\2.1.0\Device\Include"-I"D:\Program Files (x86)\keil5\ARM\CMSIS\Include"-D__UVISION_VERSION="533" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o .\objects\fftdmaad.o --omf_browse .\objects\fftdmaad.crf --depend .\objects\fftdmaad.d)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
 I (D:\Program Files (x86)\keil5\ARM\ARMCC\include\stdint.h)(0x5E8E2EB2)
@@ -1127,7 +1128,7 @@ I (D:\Program Files (x86)\keil5\ARM\ARMCC\include\string.h)(0x5E8E2EB2)
 I (Hardware\OLED.h)(0x68E25306)
 I (Hardware\OLED_Data.h)(0x68E25306)
 F (.\Hardware\PWM.h)(0x68E25306)()
-F (.\User\main.c)(0x68F64453)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\STM32F10x_DSP_Lib -I .\STM32F10x_DSP_Lib\inc -I .\STM32F10x_DSP_Lib\src\asm\arm --no-multibyte-chars-I"D:\Program Files (x86)\keil5_pack\Keil\STM32F1xx_DFP\2.1.0\Device\Include"-I"D:\Program Files (x86)\keil5\ARM\CMSIS\Include"-D__UVISION_VERSION="533" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\User\main.c)(0x68F78FF2)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\STM32F10x_DSP_Lib -I .\STM32F10x_DSP_Lib\inc -I .\STM32F10x_DSP_Lib\src\asm\arm --no-multibyte-chars-I"D:\Program Files (x86)\keil5_pack\Keil\STM32F1xx_DFP\2.1.0\Device\Include"-I"D:\Program Files (x86)\keil5\ARM\CMSIS\Include"-D__UVISION_VERSION="533" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
 I (D:\Program Files (x86)\keil5\ARM\ARMCC\include\stdint.h)(0x5E8E2EB2)
@@ -1163,7 +1164,7 @@ I (.\Hardware\Valve.h)(0x68E8F2D3)
 I (.\System\sys.h)(0x68F34BDB)
 I (.\Hardware\Timer.h)(0x68ECFF60)
 I (.\Hardware\Key.h)(0x68F6404D)
-I (.\Hardware\adc.h)(0x68CBFD30)
+I (.\Hardware\adc.h)(0x68F74E6F)
 I (.\Hardware\APP.h)(0x68F63FE8)
 I (.\Hardware\Pump.h)(0x68CC08B8)
 I (D:\Program Files (x86)\keil5\ARM\ARMCC\include\stdlib.h)(0x5E8E2EB2)
@@ -1304,7 +1305,7 @@ I (.\Library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
 F (.\System\sys.h)(0x68F34BDB)()
-F (.\System\usart.c)(0x68EF8F7C)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\STM32F10x_DSP_Lib -I .\STM32F10x_DSP_Lib\inc -I .\STM32F10x_DSP_Lib\src\asm\arm --no-multibyte-chars-I"D:\Program Files (x86)\keil5_pack\Keil\STM32F1xx_DFP\2.1.0\Device\Include"-I"D:\Program Files (x86)\keil5\ARM\CMSIS\Include"-D__UVISION_VERSION="533" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o .\objects\usart.o --omf_browse .\objects\usart.crf --depend .\objects\usart.d)
+F (.\System\usart.c)(0x68F78EFB)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\STM32F10x_DSP_Lib -I .\STM32F10x_DSP_Lib\inc -I .\STM32F10x_DSP_Lib\src\asm\arm --no-multibyte-chars-I"D:\Program Files (x86)\keil5_pack\Keil\STM32F1xx_DFP\2.1.0\Device\Include"-I"D:\Program Files (x86)\keil5\ARM\CMSIS\Include"-D__UVISION_VERSION="533" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o .\objects\usart.o --omf_browse .\objects\usart.crf --depend .\objects\usart.d)
 I (System\sys.h)(0x68F34BDB)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
