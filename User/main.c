@@ -20,19 +20,19 @@
 #include "FFTDMAAD.h"
 #include "usart.h"
 uint16_t j;
-uint8_t KeyNum;
+uint8_t KeyNum=0;
 extern u16 AD_Value[2];//AD转换缓冲区
 u16 value;
 extern u16 High_P,Low_P,Ave_P;
 /*引脚表
 PUMP--PA6
 VALVE--PA5
-CUFE--PA0
+CUFF--PA0
 PULSE--PA1
 ECGOUT--PC1
 PPGOUT--PC0
 TX--PA2
-RXP--PA3
+RX--PA3
 SCL--PB8
 SDA--PB9
 KEY--PA9(BP) PA10(PPG) PA11(ECG) PA12
@@ -49,31 +49,32 @@ KEY--PA9(BP) PA10(PPG) PA11(ECG) PA12
 	TIM3_Init(4999,71);    //启动包络提取(50HZ)(20点的滑动窗)
 	Adc_Init();						//初始化AD 转换
 	Key1_Init();						//初始化按键
-	Key2_Init();
+	
 //PPG部分
+	 
 	Init_sig();			//让板子上的灯亮起来方便判断板子坏没坏
 	OLED_Init();		//OLED初始化
 	TIM2_PWM_init();//AD采样时钟初始化
 	AD_FFT_Init();	//采样通道与DMA初始化	
-	Timer4_Init();	//波形描绘定时器初始化
+		//波形描绘定时器初始化
 	USART2_Configuration();	//初始化串口2，波特率为9600
-	PWM_Init(100,720);//在这句设置PWM的频率，第一个参数是arr，第二个参数是psc
+	
 	dt = 66;//初始占空比设置为66%
 	PWM_SetCompare3(dt);//这句设置占空比
 	k = 6;//设置波形缩放幅度
 	
-	TIM_Cmd(TIM2, ENABLE); 			//使能TIM2，采集脉冲波形
-	TIM_Cmd(TIM4, ENABLE);			//使能TIM4，更新波形图像
-	TIM_Cmd(TIM3, ENABLE);			//使能TIM3，PB0输出PWM
+	
 	
 	Adc_ECG_Init();
 
 while(1)
 	{
 	KeyNum = Key_GetNum();
-    if(KeyNum==1)//BP 180mmHg 当下降 20mmHg时启动波形记录
+
+	if(KeyNum==1)//BP 180mmHg 当下降 20mmHg时启动波形记录
   	{
-		 Blood_Pr();
+		 
+		Blood_Pr();
 		
 		printf("{\"id\":\"123\",\"version\":\"1.0\",\"params\":{\"HP\":{\"value\":%.d},\"LP\":{\"value\":%.d},\"AP\":{\"value\":%.d}}}",High_P,Low_P,Ave_P);
 			
@@ -81,6 +82,10 @@ while(1)
 	}
 	else if(KeyNum==2)//PPG
   	{
+		Timer4_Init();
+		TIM_Cmd(TIM2, ENABLE); 			//使能TIM2，采集脉冲波形
+	TIM_Cmd(TIM4, ENABLE);			//使能TIM4，更新波形图像
+	TIM_Cmd(TIM3, ENABLE);			//使能TIM3，PB0输出PWM
 		while (1)
 {
 		// 每次发送一组完整的波形数据

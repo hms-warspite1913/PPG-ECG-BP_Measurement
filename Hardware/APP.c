@@ -62,33 +62,37 @@ void Dynamic_count(void)
 //      P_Max=ADCtoHg(Rec[i][1]);
 	  if(adc_flag == 1)
 		{	FindMaxOscillation(&P_Max, &corr_pressure);
-			High_P=ADCtoHg(corr_pressure)*1.3;
-			Low_P=ADCtoHg(corr_pressure)*0.82;
+			High_P=ADCtoHg(corr_pressure)*1.2;
+			Low_P=ADCtoHg(corr_pressure)*0.8;
 			Ave_P=ADCtoHg(corr_pressure);
 		}
 
 		if(num==200)
 		{
-			OLED_ShowChinese(2,1,"收");
-			OLED_ShowChinese(2,2,"缩");
-			OLED_ShowChinese(2,3,"压");
-			OLED_ShowString(2,8,":",OLED_8X16);
-			OLED_ShowNum(2,9,High_P,3,OLED_8X16);
-			OLED_ShowString(2,12,"mmHg",OLED_8X16);
+			OLED_ClearArea(0,0,128,64);
+			OLED_Update();
+			OLED_ShowChinese(0,0,"你");
+			OLED_ShowChinese(16,0,"缩");
+			OLED_ShowChinese(32,0,"压");
+			OLED_ShowString(48,0,":",OLED_8X16);
+			OLED_ShowNum(56,0,High_P,3,OLED_8X16);
+			OLED_ShowString(80,0,"mmHg",OLED_8X16);
 			
-			OLED_ShowChinese(3,1,"舒");
-			OLED_ShowChinese(3,2,"张");
-			OLED_ShowChinese(3,3,"压");
-			OLED_ShowString(3,8,":",OLED_8X16);
-			OLED_ShowNum(3,9,Low_P,3,OLED_8X16);
-			OLED_ShowString(3,12,"mmHg",OLED_8X16);
+			OLED_ShowChinese(0,16,"舒");
+			OLED_ShowChinese(16,16,"张");
+			OLED_ShowChinese(32,16,"压");
+			OLED_ShowString(48,16,":",OLED_8X16);
+			OLED_ShowNum(56,16,Low_P,3,OLED_8X16);
+			OLED_ShowString(80,16,"mmHg",OLED_8X16);
 		
-			OLED_ShowChinese(4,1,"平");
-			OLED_ShowChinese(4,2,"均");
-			OLED_ShowChinese(4,3,"压");
-			OLED_ShowString(4,8,":",OLED_8X16);
-			OLED_ShowNum(4,9,Ave_P,3,OLED_8X16);
-			OLED_ShowString(4,12,"mmHg",OLED_8X16);
+			OLED_ShowChinese(0,32,"平");
+			OLED_ShowChinese(16,32,"均");
+			OLED_ShowChinese(32,32,"压");
+			OLED_ShowString(48,32,":",OLED_8X16);
+			OLED_ShowNum(56,32,Ave_P,3,OLED_8X16);
+			OLED_ShowString(80,32,"mmHg",OLED_8X16);
+			OLED_Update();
+			
 			while (1); //本次测量结束
 		}
 		//	OLED_ShowString(4,12,"mmHg");			
@@ -108,8 +112,13 @@ void Blood_Pr(void)
 		{
 			uint16_t A;
 			A = AD_Value[0];
-      OLED_ShowString(1, 1, "A:",OLED_8X16);	 
-      OLED_ShowNum(1, 3, A, 4,OLED_8X16);	
+		OLED_ClearArea(0,0,128,64);	
+      OLED_ShowString(1, 1, "A:",OLED_6X8);	 
+      OLED_ShowNum(10, 1, A, 4,OLED_6X8);	
+		OLED_ShowChinese(16,16,"你");
+	OLED_Update();
+			OLED_ClearArea(0,0,128,64);
+			
 		  if(AD_Value[0]>1862) //充到180mmHg
 			{
 			  Pump_OFF();//停止充气 并放气
@@ -122,7 +131,11 @@ void Blood_Pr(void)
 
 					}
 					num2++;
-					OLED_ShowNum(1, 8, num2, 4,OLED_8X16);	
+					OLED_ClearArea(0,0,128,64);
+					OLED_ShowNum(1, 8, num2, 4,OLED_6X8);
+					OLED_Update();
+					
+					
 			  }
 			}
 		}

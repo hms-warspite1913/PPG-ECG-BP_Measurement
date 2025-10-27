@@ -6,11 +6,12 @@
 
 #define SAMPLE_DURATION 25    // 采集总时长（秒）
 #define SAMPLE_INTERVAL 5     // 采样间隔（毫秒）
-#define SAMPLE_COUNT 5000  // 总采样次数：5000次
+#define SAMPLE_COUNT 3000  // 总采样次数：5000次
 u8 adc_flag = 0;  
 u8 ms1=0;
 extern u16 AD_Value[2];//声明AD转换缓冲区
-u8 num=0,Flag_M,Flag_1;//包络更新标志
+u16 num=0;
+u8 Flag_M,Flag_1;//包络更新标志
 // 2列数组：[行][0]袖带压（PA0），[行][1]脉搏波（PA1）
 uint16_t adc_data[SAMPLE_COUNT][2] = {0};  
 uint32_t data_index = 0;       // 数据索引（0~4999）
