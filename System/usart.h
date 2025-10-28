@@ -13,7 +13,7 @@ void uart_init(u32 bound);
 
 void Uart1_SendStr(char* SendBuff);
 void USART2_Configuration(void);
-void UART_SendStr(char* str);
+void UART_SendStr_PPG(char* str);
 #endif
 
 

@@ -338,7 +338,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>--no-multibyte-chars</MiscControls>
-              <Define>USE_STDPERIPH_DRIVER</Define>
+              <Define>USE_STDPERIPH_DRIVER,ARM_MATH_CM3</Define>
               <Undefine></Undefine>
               <IncludePath>.\Start;.\Library;.\User;.\System;.\Hardware;.\STM32F10x_DSP_Lib;.\STM32F10x_DSP_Lib\inc;.\STM32F10x_DSP_Lib\src\asm\arm</IncludePath>
             </VariousControls>

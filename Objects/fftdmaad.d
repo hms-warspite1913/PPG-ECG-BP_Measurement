@@ -34,3 +34,7 @@
 .\objects\fftdmaad.o: Hardware\OLED.h
 .\objects\fftdmaad.o: Hardware\OLED_Data.h
 .\objects\fftdmaad.o: Hardware\PWM.h
+.\objects\fftdmaad.o: .\System\usart.h
+.\objects\fftdmaad.o: D:\Program Files (x86)\keil5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\fftdmaad.o: .\System\sys.h
+.\objects\fftdmaad.o: .\System\Delay.h

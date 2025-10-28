@@ -203,14 +203,14 @@ void USART2_Configuration(void)
 }
 
 // 高效批量发送函数
-void UART_SendStr(char* str)
+void UART_SendStr_PPG(char* str)
 {
     while(*str)
     {
         // 等待发送寄存器为空
         while(USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET);
-        
-        USART_SendData(USART2, (uint8_t)(*str));
+        printf("{\"id\":\"123\",\"version\":\"1.0\",\"params\":{\"PPG\":{\"value\":%.d}}}",* str);
+        //USART_SendData(USART2, (uint8_t)(*str));
         str++;
     }
     

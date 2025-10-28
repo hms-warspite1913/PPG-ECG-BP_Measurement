@@ -4,8 +4,11 @@
 #include <stm32_dsp.h>
 #include "OLED.h"
 #include "PWM.h"
+#include "usart.h"
+#include "Delay.h"
 
-#define nn 1024 									
+#define nn 1024 
+#define pi2   6.28318530717959
 
 uint16_t AD_Value_PPG[nn];						//定义用于存放AD转换结果的全局数组,一次采样1024个点用于fft计算频率
 												//由于与血压adc.c的AD_Value_PPG冲突改名
@@ -15,7 +18,7 @@ float adxmin,adxmax;         //存放采集到的模拟信号最值
 uint32_t fftin[nn],fftout[nn];//fft输入信号 fft输出信号
 uint32_t fftbuffer[nn/2];  		//fft变换后信号的模值
 uint16_t fm,Af,Aff;										//频谱尖峰频率  信号峰峰值
-uint32_t F; 											//模拟信号频率
+uint32_t F,send=0; 											//模拟信号频率
 uint16_t AV;				 //存绘图用波形数据
 float Vol[128];			 //存放用于描绘波形的数据
 float k;						 //绘图缩放比例
@@ -63,9 +66,9 @@ void TIM2_PWM_init(void)
 void AD_FFT_Init(void)
 {
 	/*开启时钟*/
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC3, ENABLE);	//开启ADC1的时钟
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);	//开启ADC1的时钟
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);	//开启GPIOB的时钟
-	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA2, ENABLE);		//开启DMA1的时钟
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);		//开启DMA1的时钟
 	RCC_ADCCLKConfig(RCC_PCLK2_Div6);					//选择时钟6分频，ADCCLK = 72MHz / 6 = 12MHz
 	
 	/*GPIO初始化*/
@@ -73,10 +76,10 @@ void AD_FFT_Init(void)
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);					//将PB1引脚初始化为模拟输入
+	GPIO_Init(GPIOC, &GPIO_InitStructure);					//将PB1引脚初始化为模拟输入
 	
 	/*规则组通道配置*/
-	ADC_RegularChannelConfig(ADC3, ADC_Channel_10, 1, ADC_SampleTime_55Cycles5);	//规则组序列1的位置，配置为通道9(PB1)
+	ADC_RegularChannelConfig(ADC1, ADC_Channel_10, 1, ADC_SampleTime_55Cycles5);	//规则组序列1的位置，配置为通道9(PB1)
 		
 	/*ADC初始化*/
 	ADC_InitTypeDef ADC_InitStructure;											//定义结构体变量
@@ -88,14 +91,14 @@ void AD_FFT_Init(void)
 	ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;							//连续转换，失能，每接收到一次定时器脉冲进行一次采集
 	ADC_InitStructure.ADC_ScanConvMode = DISABLE;								//扫描模式，失能，每接收到一次定时器脉冲进行一次采集
 	ADC_InitStructure.ADC_NbrOfChannel = 1;										//通道数，为1，只扫描规则组的1个通道
-	ADC_Init(ADC3, &ADC_InitStructure);											//将结构体变量交给ADC_Init，配置ADC1
+	ADC_Init(ADC1, &ADC_InitStructure);											//将结构体变量交给ADC_Init，配置ADC1
 	
 	/*DMA初始化*/
 	DMA_InitTypeDef DMA_InitStructure;											//定义结构体变量
-	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&ADC3->DR;							//外设基地址，给定形参AddrA
+	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&ADC1->DR;							//外设基地址，给定形参AddrA
 	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;	//外设数据宽度，选择半字，对应16为的ADC数据寄存器
 	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;						//外设地址自增，选择失能，始终以ADC数据寄存器为源
-	DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)AD_Value_PPG;					//存储器基地址，给定存放AD转换结果的全局数组AD_Value_PPG
+	DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)AD_Value_PPG;					//存储器基地址，给定存放AD转换结果的全局数组AD_Value
 	DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;	//存储器数据宽度，选择半字，与源数据宽度对应
 	DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;							//存储器地址自增，选择使能，每次转运后，数组移到下一个位置
 	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;							//数据传输方向，选择由外设到存储器，ADC数据寄存器转到数组
@@ -103,20 +106,20 @@ void AD_FFT_Init(void)
 	DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;									//是否自动重装，选择循环模式，与ADC的连续转换一致
 	DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;										//存储器到存储器，选择失能，数据由ADC外设触发转运到存储器
 	DMA_InitStructure.DMA_Priority = DMA_Priority_High;							//优先级，选择高
-	DMA_Init(DMA1_Channel5, &DMA_InitStructure);									//将结构体变量交给DMA_Init，配置DMA1的通道1
+	DMA_Init(DMA1_Channel1, &DMA_InitStructure);									//将结构体变量交给DMA_Init，配置DMA1的通道1
 		
 	/*DMA和ADC使能*/
-	DMA_Cmd(DMA2_Channel5, ENABLE);							//DMA1的通道1使能
-	ADC_DMACmd(ADC3, ENABLE);								//ADC1触发DMA1的信号使能
-	ADC_Cmd(ADC3, ENABLE);									//ADC1使能
+	DMA_Cmd(DMA1_Channel1, ENABLE);							//DMA1的通道1使能
+	ADC_DMACmd(ADC1, ENABLE);								//ADC1触发DMA1的信号使能
+	ADC_Cmd(ADC1, ENABLE);									//ADC1使能
   
 	/*ADC校准*/
-	ADC_ResetCalibration(ADC3);								//固定流程，内部有电路会自动执行校准
-	while (ADC_GetResetCalibrationStatus(ADC3) == SET);
-	ADC_StartCalibration(ADC3);
-	while (ADC_GetCalibrationStatus(ADC3) == SET);
+	ADC_ResetCalibration(ADC1);								//固定流程，内部有电路会自动执行校准
+	while (ADC_GetResetCalibrationStatus(ADC1) == SET);
+	ADC_StartCalibration(ADC1);
+	while (ADC_GetCalibrationStatus(ADC1) == SET);
 	/*ADC触发*/
-	ADC_ExternalTrigConvCmd(ADC3,ENABLE);//硬件触发ADC开始工作
+	ADC_ExternalTrigConvCmd(ADC1,ENABLE);//硬件触发ADC开始工作
 //	ADC_SoftwareStartConvCmd(ADC1, ENABLE);//软件触发
 }
 
@@ -247,27 +250,36 @@ void TIM4_IRQHandler(void)
 	{
 		
 		/*显示波形参数*/
-		fre_calcu();																				
+	
+		fre_calcu();
+		
 		OLED_ClearArea(0,0,128,34);
 		OLED_ShowString(0,0,"Frequency:",OLED_6X8);
 		OLED_ShowString(0,10,"Voltage:",OLED_6X8);
-		
+	
 		OLED_ShowString(90,0,"Hz",OLED_6X8);
 		OLED_ShowString(90,10,"V",OLED_6X8);
-		
+
 		OLED_ShowNum(64,0,F,5,OLED_6X8);
-		
+
 		OLED_ShowNum(64,10,Af,1,OLED_6X8);
 		OLED_ShowString(70,10,".",OLED_6X8);
 		OLED_ShowNum(76,10,Aff,1,OLED_6X8);
-		
+	
 		/*更新波形*/
-		OLED_ClearArea(0,30,128,34);	
+		OLED_ClearArea(0,30,128,34);
+		
 		
 		for(i=0; i<128; i++) {
+			
 			float sum = 0;
-			for(j=0; j<8; j++) sum += AD_Value_PPG[i*8 + j]; // 每8点取平均
+			for(j=0; j<8; j++) {sum += AD_Value_PPG[i*8 + j]; 
+			
+			}// 每8点取平均
 			Vol[i] = (sum / 8) / 4095 * 3.3;
+	
+			
+			
 		}
 
 		for(i=0;i<128;i++)
@@ -280,8 +292,15 @@ void TIM4_IRQHandler(void)
 			{
 				OLED_DrawPoint(i, 64-Vol[i]*k); 
 			}
+			
+			
 		}
 		OLED_Update();
+		send+=1;
+		if(send==32){
+		printf("{\"id\":\"123\",\"version\":\"1.0\",\"params\":{\"PPG\":{\"value\":%.d}}}",F);
+		send=0;
+		}
 		TIM_ClearITPendingBit(TIM4, TIM_IT_Update);
 	}
 }
